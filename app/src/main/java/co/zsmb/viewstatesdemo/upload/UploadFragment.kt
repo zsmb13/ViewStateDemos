@@ -15,6 +15,10 @@ import kotlinx.android.synthetic.main.fragment_upload.*
 
 class UploadFragment : Fragment() {
 
+    companion object {
+        private const val ANIMATION_DURATION = 100
+    }
+
     private lateinit var viewModel: UploadViewModel
 
     override fun onCreateView(
@@ -56,7 +60,10 @@ class UploadFragment : Fragment() {
                 uploadDoneIcon.isVisible = false
                 uploadStatusText.isVisible = false
                 retryUploadButton.isVisible = false
-                progressBar.setProgressWithAnimation(viewState.percentage.toFloat(), 100)
+                progressBar.setProgressWithAnimation(
+                    viewState.percentage.toFloat(),
+                    ANIMATION_DURATION
+                )
                 uploadProgressText.text = "${viewState.percentage}%"
             }
             UploadFailed -> {
@@ -90,7 +97,10 @@ class UploadFragment : Fragment() {
                 // Empty
             }
             is UploadInProgress -> {
-                progressBar.setProgressWithAnimation(viewState.percentage.toFloat(), 100)
+                progressBar.setProgressWithAnimation(
+                    viewState.percentage.toFloat(),
+                    ANIMATION_DURATION
+                )
                 uploadProgressText.text = "${viewState.percentage.toInt()}%"
             }
             UploadFailed -> {
