@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="co.zsmb.viewstatesdemo.upload.UploadFragment"
+        android:label="UploadFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="co.zsmb.viewstatesdemo.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="co.zsmb.viewstatesdemo.profile.ProfileFragment"
+        android:label="ProfileFragment">
+        <argument
+            android:name="shouldError"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="co.zsmb.viewstatesdemo.list.ListFragment"
+        android:label="ListFragment" />
+</navigation>
