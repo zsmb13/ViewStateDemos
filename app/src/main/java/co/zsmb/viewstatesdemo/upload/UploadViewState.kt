@@ -1,11 +1,32 @@
 package co.zsmb.viewstatesdemo.upload
 
-sealed class UploadViewState
+data class UploadViewState(
+    val isProgressVisible: Boolean = false,
+    val progressPercentage: Int = 0,
+    val isUploadDoneVisible: Boolean = false,
+    val isStatusTextVisible: Boolean = false,
+    val statusText: String = "",
+    val isRetryVisible: Boolean = false
+) {
 
-object Initial : UploadViewState()
+    companion object {
+        fun initial() = UploadViewState()
 
-data class UploadInProgress(val percentage: Int) : UploadViewState()
+        fun uploadInProgress(percentage: Int) = initial().copy(
+            isProgressVisible = true,
+            progressPercentage = percentage
+        )
 
-object UploadFailed : UploadViewState()
+        fun uploadFailed() = initial().copy(
+            isStatusTextVisible = true,
+            statusText = "Sorry, something went wrong.",
+            isRetryVisible = true
+        )
 
-object UploadSuccess : UploadViewState()
+        fun uploadSuccess() = initial().copy(
+            isUploadDoneVisible = true,
+            isStatusTextVisible = true,
+            statusText = "Upload complete!"
+        )
+    }
+}
