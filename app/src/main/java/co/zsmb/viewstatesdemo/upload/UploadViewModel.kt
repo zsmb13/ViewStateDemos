@@ -3,6 +3,7 @@ package co.zsmb.viewstatesdemo.upload
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.zsmb.viewstatesdemo.select
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -10,40 +11,42 @@ import kotlin.random.nextLong
 
 class UploadViewModel : ViewModel() {
 
-    val viewState = MutableLiveData<UploadViewState>()
+    private val viewState = MutableLiveData<UploadViewState>()
+
+    fun <T> select(property: UploadViewState.() -> T) = viewState.select(property)
 
     init {
-        viewState.value = Initial
+        viewState.value = UploadViewState.initial()
     }
 
     fun startUpload() {
         viewModelScope.launch {
-            viewState.value = Initial
-            viewState.value = UploadInProgress(10)
+            viewState.value = UploadViewState.initial()
+            viewState.value = UploadViewState.uploadInProgress(10)
             delay()
-            viewState.value = UploadInProgress(30)
+            viewState.value = UploadViewState.uploadInProgress(30)
             delay()
-            viewState.value = UploadInProgress(42)
+            viewState.value = UploadViewState.uploadInProgress(42)
             delay()
-            viewState.value = UploadInProgress(50)
+            viewState.value = UploadViewState.uploadInProgress(50)
             delay()
 
             if (Random.nextBoolean()) {
-                viewState.value = UploadFailed
+                viewState.value = UploadViewState.uploadFailed()
                 return@launch
             }
 
-            viewState.value = UploadInProgress(70)
+            viewState.value = UploadViewState.uploadInProgress(70)
             delay()
-            viewState.value = UploadInProgress(90)
+            viewState.value = UploadViewState.uploadInProgress(90)
             delay()
-            viewState.value = UploadInProgress(94)
+            viewState.value = UploadViewState.uploadInProgress(94)
             delay()
-            viewState.value = UploadInProgress(99)
+            viewState.value = UploadViewState.uploadInProgress(99)
             delay()
-            viewState.value = UploadInProgress(100)
+            viewState.value = UploadViewState.uploadInProgress(100)
 
-            viewState.value = UploadSuccess
+            viewState.value = UploadViewState.uploadSuccess()
         }
     }
 
